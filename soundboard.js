@@ -13,7 +13,9 @@ document.addEventListener("keyup", function(event){
     var id = getID(event.key);
     if(id){
         var element = document.querySelector("."+id);
-        playAudio(element);
+        if(element){
+            playAudio(element);
+        }
     }
 })
 
