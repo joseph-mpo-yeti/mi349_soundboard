@@ -14,9 +14,8 @@ function onClickListener(event){
 
 function onKeyUpListener(event) {
     const id = getID(event.key);
-    const element = document.querySelector("."+id);
-    
-    if(id && element){
+    if(id){
+        const element = document.querySelector("."+id);
         playAudio(element);
     }
 }
