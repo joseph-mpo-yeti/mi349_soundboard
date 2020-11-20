@@ -1,23 +1,37 @@
-document.addEventListener("click", function(event) {
+document.addEventListener("click", onClickListener);
+document.addEventListener("keyup", onKeyUpListener);
+
+function onClickListener(event){
     if(event.target.classList.contains("pad")){
-        var audioElement = document.querySelector("."+event.target.id)
+        const audioElement = document.querySelector("."+event.target.id)
         
-        if(audioElement !== null){
+        if(audioElement){
             playAudio(audioElement);
         }
 
     }
-})
+}
 
-document.addEventListener("keyup", function(event){
-    var id = getID(event.key);
-    if(id){
-        var element = document.querySelector("."+id);
-        if(element){
-            playAudio(element);
-        }
+function onKeyUpListener(event) {
+    const id = getID(event.key);
+    const element = document.querySelector("."+id);
+    
+    if(id && element){
+        playAudio(element);
     }
-})
+}
+
+function playAudio(audioElement){
+    audioElement.currentTime = 0;
+    audioElement.play();
+    
+    const button = document.getElementById(audioElement.classList[0]);
+    button.classList.add("playing");
+
+    audioElement.addEventListener("ended", function(){
+        button.classList.remove("playing");
+    })
+}
 
 function getID(key){
     switch (event.key) {
@@ -44,16 +58,4 @@ function getID(key){
         default:
             return "";
     }
-}
-
-function playAudio(audioElement){
-    audioElement.currentTime = 0;
-    audioElement.play();
-    
-    var button = document.getElementById(audioElement.classList[0]);
-    button.classList.add("playing");
-
-    audioElement.addEventListener("ended", function(){
-        button.classList.remove("playing");
-    })
 }
